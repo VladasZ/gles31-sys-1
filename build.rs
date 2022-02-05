@@ -18,14 +18,21 @@ fn symlink_gles(include_dir: &Path) {
     std::os::unix::fs::symlink(include_dir, gles_dir).unwrap();
 }
 
+fn android_home_dir() -> String {
+    if let Ok(android_home) = env::var("ANDROID_HOME") {
+        return android_home
+    }
+    return "/Users/vladas/Library/Android/sdk".into()
+}
+
 fn ndk_include_dir() -> PathBuf {
 
     if let Ok(include) = env::var("NDK_INCLUDE_DIR") {
         return include.into()
     }
 
-    let ndk_ver = env::var("NDK_VER").unwrap_or("21.3.6528147".to_string());
-    let android_home = env::var("ANDROID_HOME").expect("ANDROID_HOME not set!");
+    let ndk_ver = env::var("NDK_VER").unwrap_or("23.1.7779620".to_string());
+    let android_home = android_home_dir();
 
     #[cfg(target_os = "linux")]
     let toolchain = "linux-x86_64";
