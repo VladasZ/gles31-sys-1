@@ -1,11 +1,13 @@
 extern crate bindgen;
 
-use std::path::{Path, PathBuf};
-use std::{env, fs};
+use std::{
+    env, fs,
+    path::{Path, PathBuf},
+};
 
 /// Xcode framework includes work a bit weird so we need to create this symlink.
-/// Otherwise OpenGLES/OpenGLESAvailability.h include will be not visible to bindgen.
-/// If anyone knows how to make it more gracefully I will change it.
+/// Otherwise OpenGLES/OpenGLESAvailability.h include will be not visible to
+/// bindgen. If anyone knows how to make it more gracefully I will change it.
 fn symlink_gles(include_dir: &Path) {
     let gles_dir = Path::new("temp/OpenGLES");
 
@@ -20,15 +22,14 @@ fn symlink_gles(include_dir: &Path) {
 
 fn android_home_dir() -> String {
     if let Ok(android_home) = env::var("ANDROID_HOME") {
-        return android_home
+        return android_home;
     }
-    return "/Users/vladas/Library/Android/sdk".into()
+    return "/Users/vladas/Library/Android/sdk".into();
 }
 
 fn ndk_include_dir() -> PathBuf {
-
     if let Ok(include) = env::var("NDK_INCLUDE_DIR") {
-        return include.into()
+        return include.into();
     }
 
     let ndk_ver = env::var("NDK_VER").unwrap_or("23.1.7779620".to_string());
@@ -47,7 +48,10 @@ fn ndk_include_dir() -> PathBuf {
 }
 
 fn ios_setup() {
-    let framework_dir = Path::new("/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/OpenGLES.framework/");
+    let framework_dir = Path::new(
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/\
+         iPhoneOS.sdk/System/Library/Frameworks/OpenGLES.framework/",
+    );
     let include_dir = framework_dir.join("Headers");
 
     symlink_gles(&include_dir);
