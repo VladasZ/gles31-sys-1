@@ -28,8 +28,8 @@ fn android_home_dir() -> String {
 }
 
 fn ndk_include_dir() -> PathBuf {
-    return "/Users/vladas/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/\
-            sysroot/usr/include"
+    return "/Users/vladas/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/\
+            usr/include"
         .into();
 
     if let Ok(include) = env::var("NDK_INCLUDE_DIR") {
@@ -53,8 +53,8 @@ fn ndk_include_dir() -> PathBuf {
 
 fn ios_setup() {
     let framework_dir = Path::new(
-        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/\
-         iPhoneOS.sdk/System/Library/Frameworks/OpenGLES.framework/",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/\
+         System/Library/Frameworks/OpenGLES.framework/",
     );
     let include_dir = framework_dir.join("Headers");
 
