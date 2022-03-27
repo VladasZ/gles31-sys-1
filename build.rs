@@ -78,6 +78,8 @@ fn android_setup() {
 
 fn generate_bindings(gl31h: &str, includes: &[&str]) {
     println!("cargo:rustc-link-lib=GLESv3");
+    println!("cargo:rustc-link-lib=log");
+    println!("cargo:rustc-link-lib=android");
     println!("cargo:rerun-if-changed={}", gl31h);
 
     let mut bindings = bindgen::Builder::default();
