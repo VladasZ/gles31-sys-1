@@ -28,6 +28,11 @@ fn android_home_dir() -> String {
 }
 
 fn ndk_include_dir() -> PathBuf {
+
+    if let Ok(ndk_home) = env::var("NDK_HOME") {
+        return (ndk_home + "/sysroot/usr/include").into();
+    }
+
     if let Ok(include) = env::var("NDK_INCLUDE_DIR") {
         return include.into();
     }
