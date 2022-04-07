@@ -53,8 +53,8 @@ fn ndk_include_dir() -> PathBuf {
 
 fn ios_setup() {
     let framework_dir = Path::new(
-        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/\
-         System/Library/Frameworks/OpenGLES.framework/",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/\
+         iPhoneOS.sdk/System/Library/Frameworks/OpenGLES.framework/",
     );
     let include_dir = framework_dir.join("Headers");
 
