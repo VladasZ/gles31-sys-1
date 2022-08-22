@@ -64,6 +64,8 @@ fn ios_setup() {
     let gl31h = gl31h.to_str().unwrap();
     let include_dir = include_dir.to_str().unwrap();
 
+    println!("cargo:rustc-link-lib=framework=OpenGLES");
+
     generate_bindings(gl31h, &[include_dir, "temp"]);
 }
 
@@ -73,13 +75,15 @@ fn android_setup() {
     let gl31h = gl31h.to_str().unwrap();
     let ndk_include_dir = ndk_include_dir.to_str().unwrap();
 
+    println!("cargo:rustc-link-lib=GLESv3");
+    println!("cargo:rustc-link-lib=log");
+    println!("cargo:rustc-link-lib=android");
+
     generate_bindings(gl31h, &[ndk_include_dir]);
 }
 
 fn generate_bindings(gl31h: &str, includes: &[&str]) {
-    println!("cargo:rustc-link-lib=GLESv3");
-    println!("cargo:rustc-link-lib=log");
-    println!("cargo:rustc-link-lib=android");
+
     println!("cargo:rerun-if-changed={}", gl31h);
 
     let mut bindings = bindgen::Builder::default();
@@ -102,9 +106,9 @@ fn generate_bindings(gl31h: &str, includes: &[&str]) {
 }
 
 fn main() {
-    if std::env::var("CARGO_CFG_TARGET_OS") == Ok("android".into()) {
+    if env::var("CARGO_CFG_TARGET_OS") == Ok("android".into()) {
         android_setup()
-    } else if std::env::var("CARGO_CFG_TARGET_OS") == Ok("ios".into()) {
+    } else if env::var("CARGO_CFG_TARGET_OS") == Ok("ios".into()) {
         ios_setup()
     } else {
         panic!("Unsupported target OS. Only iOS and Android supported.")
