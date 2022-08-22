@@ -17,7 +17,7 @@ brew install --cask android-sdk
 export ANDROID_HOME=$HOME/Library/Android/sdk/ 
 cargo build
 ```
-                      
+
 ## Publishing
 
 ```shell
@@ -35,4 +35,4 @@ cargo publish --target=aarch64-linux-android --no-verify
 
 1. Have CI tag and auto-increment merges to master
 2. Have CI automatically publish to crates.io
-3. Determing the correct way to publish without having to use `--no-verify`
+3. Determining the correct way to publish without having to use `--no-verify`
