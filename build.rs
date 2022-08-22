@@ -83,7 +83,6 @@ fn android_setup() {
 }
 
 fn generate_bindings(gl31h: &str, includes: &[&str]) {
-
     println!("cargo:rerun-if-changed={}", gl31h);
 
     let mut bindings = bindgen::Builder::default();
