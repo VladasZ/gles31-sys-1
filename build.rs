@@ -110,6 +110,6 @@ fn main() {
     } else if env::var("CARGO_CFG_TARGET_OS") == Ok("ios".into()) {
         ios_setup()
     } else {
-        panic!("Unsupported target OS. Only iOS and Android supported.")
+        println!("Unsupported target OS. Only iOS and Android supported.")
     }
 }
