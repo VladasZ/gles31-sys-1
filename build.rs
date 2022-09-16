@@ -8,6 +8,7 @@ use std::{
 /// Xcode framework includes work a bit weird so we need to create this symlink.
 /// Otherwise OpenGLES/OpenGLESAvailability.h include will be not visible to
 /// bindgen. If anyone knows how to make it more gracefully I will change it.
+#[cfg(not(windows))]
 fn symlink_gles(include_dir: &Path) {
     let gles_dir = Path::new("temp/OpenGLES");
 
@@ -20,6 +21,7 @@ fn symlink_gles(include_dir: &Path) {
     std::os::unix::fs::symlink(include_dir, gles_dir).unwrap();
 }
 
+#[cfg(not(windows))]
 fn android_home_dir() -> String {
     if let Ok(android_home) = env::var("ANDROID_HOME") {
         return android_home;
@@ -27,6 +29,7 @@ fn android_home_dir() -> String {
     return "/Users/vladas/Library/Android/sdk".into();
 }
 
+#[cfg(not(windows))]
 fn ndk_include_dir() -> PathBuf {
     if let Ok(ndk_home) = env::var("NDK_HOME") {
         return (ndk_home + "/sysroot/usr/include").into();
@@ -51,6 +54,7 @@ fn ndk_include_dir() -> PathBuf {
     Path::new(android_home.as_str()).join(path)
 }
 
+#[cfg(not(windows))]
 fn ios_setup() {
     let framework_dir = Path::new(
         "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/\
@@ -69,6 +73,7 @@ fn ios_setup() {
     generate_bindings(gl31h, &[include_dir, "temp"]);
 }
 
+#[cfg(not(windows))]
 fn android_setup() {
     let ndk_include_dir = ndk_include_dir();
     let gl31h = ndk_include_dir.join("GLES3/gl31.h");
@@ -82,6 +87,7 @@ fn android_setup() {
     generate_bindings(gl31h, &[ndk_include_dir]);
 }
 
+#[cfg(not(windows))]
 fn generate_bindings(gl31h: &str, includes: &[&str]) {
     println!("cargo:rerun-if-changed={}", gl31h);
 
@@ -106,8 +112,10 @@ fn generate_bindings(gl31h: &str, includes: &[&str]) {
 
 fn main() {
     if env::var("CARGO_CFG_TARGET_OS") == Ok("android".into()) {
+        #[cfg(not(windows))]
         android_setup()
     } else if env::var("CARGO_CFG_TARGET_OS") == Ok("ios".into()) {
+        #[cfg(not(windows))]
         ios_setup()
     } else {
         println!("Unsupported target OS. Only iOS and Android supported.")
