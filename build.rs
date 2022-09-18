@@ -1,3 +1,5 @@
+#![allow(unused_imports)]
+
 extern crate bindgen;
 
 use std::{
