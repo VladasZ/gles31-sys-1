@@ -26,9 +26,10 @@ fn symlink_gles(include_dir: &Path) {
 #[cfg(not(windows))]
 fn android_home_dir() -> String {
     if let Ok(android_home) = env::var("ANDROID_HOME") {
-        return android_home;
+        android_home
+    } else {
+        "/Users/vladas/Library/Android/sdk".into()
     }
-    return "/Users/vladas/Library/Android/sdk".into();
 }
 
 #[cfg(not(windows))]
@@ -41,7 +42,7 @@ fn ndk_include_dir() -> PathBuf {
         return include.into();
     }
 
-    let ndk_ver = env::var("NDK_VER").unwrap_or("23.1.7779620".to_string());
+    let ndk_ver = env::var("NDK_VER").unwrap_or_else(|_| "23.1.7779620".to_string());
     let android_home = android_home_dir();
 
     #[cfg(target_os = "linux")]
