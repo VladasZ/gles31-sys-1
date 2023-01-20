@@ -49,10 +49,7 @@ fn ndk_include_dir() -> PathBuf {
     let toolchain = "linux-x86_64";
     #[cfg(target_os = "macos")]
     let toolchain = "darwin-x86_64";
-    let path = format!(
-        "ndk/{}/toolchains/llvm/prebuilt/{}/sysroot/usr/include/",
-        ndk_ver, toolchain
-    );
+    let path = format!("ndk/{ndk_ver}/toolchains/llvm/prebuilt/{toolchain}/sysroot/usr/include/");
 
     Path::new(android_home.as_str()).join(path)
 }
@@ -92,13 +89,13 @@ fn android_setup() {
 
 #[cfg(not(windows))]
 fn generate_bindings(gl31h: &str, includes: &[&str]) {
-    println!("cargo:rerun-if-changed={}", gl31h);
+    println!("cargo:rerun-if-changed={gl31h}");
 
     let mut bindings = bindgen::Builder::default();
 
     for include in includes {
-        println!("{}", include);
-        bindings = bindings.clang_arg(format!("-I{}", include));
+        println!("{include}");
+        bindings = bindings.clang_arg(format!("-I{include}"));
     }
 
     let bindings = bindings
