@@ -17,4 +17,4 @@ crate-type = ["rlib", "staticlib"]
 [dependencies]
 
 [build-dependencies]
-bindgen = "0.56.0"
+bindgen = "0.63.0"
