@@ -1,18 +1,18 @@
 [package]
-authors     = ["Brent Gardner <bgardner@squarelabs.net>"]
+authors = ["Brent Gardner <bgardner@squarelabs.net>"]
 description = "Rust bindings for OpenGL ES 3.1"
-edition     = "2021"
-homepage    = "https://github.com/Mersive-Technologies/gles31-sys"
-keywords    = ["OpenGL", "gles", "3d", "Android", "iOS"]
-license     = "MIT OR Apache-2.0"
-name        = "gles31-sys"
-readme      = "readme.md"
-repository  = "https://github.com/Mersive-Technologies/gles31-sys"
-version     = "0.2.0"
+edition = "2021"
+homepage = "https://github.com/Mersive-Technologies/gles31-sys"
+keywords = ["OpenGL", "gles", "3d", "Android", "iOS"]
+license = "MIT OR Apache-2.0"
+name = "gles31-sys"
+readme = "readme.md"
+repository = "https://github.com/Mersive-Technologies/gles31-sys"
+version = "0.2.0"
 
 [lib]
 crate-type = ["rlib", "staticlib"]
-name       = "gles31_sys"
+name = "gles31_sys"
 
 [dependencies]
 
