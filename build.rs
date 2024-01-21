@@ -11,7 +11,7 @@ use std::{
 /// Otherwise OpenGLES/OpenGLESAvailability.h include will be not visible to
 /// bindgen. If anyone knows how to make it more gracefully I will change it.
 #[cfg(not(windows))]
-fn symlink_gles(include_dir: &Path) {
+fn symlink_gles(_include_dir: &Path) {
     let gles_dir = Path::new("temp/OpenGLES");
 
     if gles_dir.exists() {
@@ -20,7 +20,7 @@ fn symlink_gles(include_dir: &Path) {
 
     fs::create_dir("temp").unwrap();
     #[cfg(target_os = "macos")]
-    std::os::unix::fs::symlink(include_dir, gles_dir).unwrap();
+    std::os::unix::fs::symlink(_include_dir, gles_dir).unwrap();
 }
 
 #[cfg(not(windows))]
